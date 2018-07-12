@@ -1,0 +1,130 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "REST API for Mobile Tracker",
+    "version": "1.0.0",
+    "title": "Spring Boot REST API",
+    "contact": {
+      "name": "Amar",
+      "url": "www.google.com",
+      "email": "Amar"
+    },
+    "license": {
+      "name": "Apache License Version 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0\""
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "location-controller",
+      "description": "Location Controller"
+    }
+  ],
+  "paths": {
+    "/v1/tracker/distance": {
+      "get": {
+        "tags": [
+          "location-controller"
+        ],
+        "summary": "Get distance between the mobile location and the specified location in miles",
+        "operationId": "getDistanceUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mobileNo",
+            "in": "query",
+            "description": "mobileNo",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "streetAddress",
+            "in": "query",
+            "description": "streetAddress",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/tracker/{mobileNo}": {
+      "get": {
+        "tags": [
+          "location-controller"
+        ],
+        "summary": "Get phone location details using the phone number",
+        "operationId": "getLocationUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mobileNo",
+            "in": "path",
+            "description": "mobileNo",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Location"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "streetAddress": {
+          "type": "string"
+        }
+      },
+      "title": "Location"
+    }
+  }
+}
